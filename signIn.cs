@@ -60,17 +60,20 @@ namespace hot_summer
             //检查用户名和密码 开始
             MySqlCommand cmd;
             MySqlConnection conn;
+            long num;
 
             string connstring = "Server=" + DBServer + ";Database =" + DBname + ";Uid=" + DBuserName + ";Pwd=" + DBpassword + ";";
 
             conn = new MySqlConnection(connstring);
             conn.Open();
 
-            string query = "select * from " + tableName + " where " + userNameCol + "=" + username + " and " + passwordCol + "=" + password + ";";
+            string query = "select count(*) from " + tableName + " where " + userNameCol + "=" + username + " and " + passwordCol + "='" + password + "';";
             cmd = new MySqlCommand(query, conn);
-            if (cmd.ExecuteNonQuery() != 0) isSuccess = true;
-            else isSuccess = false;
 
+            num = (long)cmd.ExecuteScalar();
+            if (num != 0l) isSuccess = true;
+            else isSuccess = false;
+            
             conn.Close(); 
             //检查用户名和密码 结束
 
