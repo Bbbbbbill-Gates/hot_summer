@@ -1,8 +1,10 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,23 +40,46 @@ namespace hot_summer
                 text_userName.Focus();
                 return;
             }
-
             if (this.password == "" || this.password == null)
             {
                 MessageBox.Show("请输入密码！", "错误");
                 text_password.Focus();
                 return;
             }
+            
+            //获取在哪里查询
+            string DBServer = "localhost";
+            string DBname = "test_schema";
+            string DBuserName = "root";
+            string DBpassword = "ca.0123";
+            string tableName = "test_table";
+            string userNameCol = "idtest_table";
+            string passwordCol = "test_tablecol1";
 
-            //数据库中检查用户名和密码
+            //数据库中检查用户名和密码, 只实现了查询数字
             //检查用户名和密码 开始
+            MySqlCommand cmd;
+            MySqlConnection conn;
 
+            string connstring = "Server=" + DBServer + ";Database =" + DBname + ";Uid=" + DBuserName + ";Pwd=" + DBpassword + ";";
+
+            conn = new MySqlConnection(connstring);
+            conn.Open();
+
+            string query = "select * from " + tableName + " where " + userNameCol + "=" + username + " and " + passwordCol + "=" + password + ";";
+            cmd = new MySqlCommand(query, conn);
+            if (cmd.ExecuteNonQuery() != 0) isSuccess = true;
+            else isSuccess = false;
+
+            conn.Close(); 
             //检查用户名和密码 结束
 
             //输入正确则打开主页面，不正确提示用户名或密码错误，清空密码，密码框获得焦点
             if (isSuccess)
             {
+                MessageBox.Show("登陆成功！", "提示");
 
+                //打开主页面
             }
             else
             {
@@ -85,7 +110,7 @@ namespace hot_summer
         private void button2_Click(object sender, EventArgs e)
         {
             Application.Exit();
-            //
         }
+
     }
 }
