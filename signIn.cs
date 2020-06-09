@@ -83,6 +83,10 @@ namespace hot_summer
                 MessageBox.Show("登陆成功！", "提示");
 
                 //打开主页面
+                this.Hide();
+                homepage home = new homepage();
+                home.StartPosition = FormStartPosition.CenterScreen;
+                home.Show();
             }
             else
             {
