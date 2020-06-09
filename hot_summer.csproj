@@ -47,6 +47,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="createProForm1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="createProForm1.Designer.cs">
+      <DependentUpon>createProForm1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="createProForm2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="createProForm2.Designer.cs">
+      <DependentUpon>createProForm2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dataCollectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dataCollectForm.Designer.cs">
+      <DependentUpon>dataCollectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gamePlay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gamePlay.Designer.cs">
+      <DependentUpon>gamePlay.cs</DependentUpon>
+    </Compile>
     <Compile Include="homepage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +85,12 @@
     <Compile Include="signIn.Designer.cs">
       <DependentUpon>signIn.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="createProForm1.resx">
+      <DependentUpon>createProForm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="createProForm2.resx">
+      <DependentUpon>createProForm2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="homepage.resx">
       <DependentUpon>homepage.cs</DependentUpon>
     </EmbeddedResource>

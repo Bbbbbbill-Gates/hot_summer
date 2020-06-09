@@ -17,7 +17,8 @@ namespace hot_summer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new signIn());
+            Application.Run(new createProForm2(null));
+            //Application.Run(new signIn());
         }
     }
 }
