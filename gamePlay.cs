@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AxWMPLib;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,14 +8,53 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WMPLib;
 
 namespace hot_summer
 {
     public partial class gamePlay : Form
     {
+
+        /// <summary>
+        /// 构造函数初始化播放窗口在屏幕中的位置
+        /// </summary>
         public gamePlay()
         {
             InitializeComponent();
+            int x = Screen.PrimaryScreen.WorkingArea.Left;
+            int y = 200;
+            this.Location = new Point(x, y);
         }
+
+        /// <summary>
+        /// 获取播放器
+        /// </summary>
+        /// <returns></returns>
+        public AxWindowsMediaPlayer getPlayer()
+        {
+            return axWindowsMediaPlayer1;
+        }
+
+        /// <summary>
+        /// 加载时获取比赛录像的路径
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gamePlay_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// 调整播放窗口时，同时改变播放器大小
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gamePlay_Resize(object sender, EventArgs e)
+        {
+            axWindowsMediaPlayer1.Size = new Size(this.Size.Width, this.Size.Height-35);
+        }
+        
+
     }
 }

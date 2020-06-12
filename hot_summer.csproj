@@ -77,6 +77,12 @@
     <Compile Include="homepage.Designer.cs">
       <DependentUpon>homepage.cs</DependentUpon>
     </Compile>
+    <Compile Include="optForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="optForm.Designer.cs">
+      <DependentUpon>optForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="signIn.cs">
@@ -99,6 +105,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="homepage.resx">
       <DependentUpon>homepage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="optForm.resx">
+      <DependentUpon>optForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

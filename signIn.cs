@@ -84,9 +84,9 @@ namespace hot_summer
 
                 //打开主页面
                 this.Hide();
-                homepage home = new homepage();
-                home.StartPosition = FormStartPosition.CenterScreen;
-                home.Show();
+                optForm optform = new optForm();
+                optform.StartPosition = FormStartPosition.CenterScreen;
+                optform.Show();
             }
             else
             {
@@ -119,5 +119,9 @@ namespace hot_summer
             Application.Exit();
         }
 
+        private void signIn_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -12,62 +12,74 @@ namespace hot_summer
 {
     public partial class homepage : Form
     {
-        public homepage()
+        private bool isRecord = false;
+        private bool isUser = false;
+        private optForm last;
+
+        public homepage(optForm opt)
         {
             InitializeComponent();
-        }
 
+            userBtn_Click(null, null);
+
+            this.last = opt;
+        }
         /// <summary>
-        /// 当页面关闭，退出程序
+        /// 当页面关闭,显示主页面
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void homepage_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            this.last.Show();
         }
 
-        /// <summary>
-        /// 三个按钮，鼠标进入或者离开范围时改变颜色操作，共六个函数
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button3_MouseEnter(object sender, EventArgs e)
+        private void userBtn_Click(object sender, EventArgs e)
         {
-            Button btn = (Button)sender;
-            btn.BackColor = Color.FromArgb(225, 255, 255);
+            if (! this.isUser)
+            {
+                this.isUser = true;
+
+                this.headPic_lbl.Visible = true;
+                this.userName_lbl.Visible = true;
+                this.email_lbl.Visible = true;
+                this.phone_lbl.Visible = true;
+                this.address_lbl.Visible = true;
+                this.change_btn.Visible = true;
+
+                this.isRecord = false;
+                this.dataGridView1.Visible = false;
+                this.comboBox1.Visible = false;
+                this.comboBox2.Visible = false;
+                this.comboBox3.Visible = false;
+                this.textBox1.Visible = false;
+                this.select_btn.Visible = false;
+                this.export_btn.Visible = false;
+            }
         }
 
-        private void button3_MouseLeave(object sender, EventArgs e)
+        private void recordBtn_Click(object sender, EventArgs e)
         {
-            Button btn = (Button)sender;
-            btn.BackColor = Control.DefaultBackColor;
+            if (! this.isRecord)
+            {
+                this.isRecord = true;
+
+                this.dataGridView1.Visible = true;
+                this.comboBox1.Visible = true;
+                this.comboBox2.Visible = true;
+                this.comboBox3.Visible = true;
+                this.textBox1.Visible = true;
+                this.select_btn.Visible = true;
+                this.export_btn.Visible = true;
+
+                this.isUser = false;
+                this.headPic_lbl.Visible = false;
+                this.userName_lbl.Visible = false;
+                this.email_lbl.Visible = false;
+                this.phone_lbl.Visible = false;
+                this.address_lbl.Visible = false;
+                this.change_btn.Visible = false;
+            }
         }
-
-        private void button2_MouseEnter(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            btn.BackColor = Color.FromArgb(225, 255, 255);
-        }
-
-        private void button2_MouseLeave(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            btn.BackColor = Control.DefaultBackColor;
-        }
-
-        private void button1_MouseEnter(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            btn.BackColor = Color.FromArgb(225, 255, 255);
-        }
-
-        private void button1_MouseLeave(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            btn.BackColor = Control.DefaultBackColor;
-        }
-
-
     }
 }

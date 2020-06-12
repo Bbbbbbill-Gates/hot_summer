@@ -17,10 +17,10 @@ namespace hot_summer
         private DateTime gameTime;
         private string address;
         private Form lastForm;
-        public createProForm1(homepage home)
+        public createProForm1(optForm optform)
         {
             InitializeComponent();
-            this.lastForm = home;
+            this.lastForm = optform;
         }
 
         /// <summary>
@@ -80,6 +80,7 @@ namespace hot_summer
             string testTime = "idtest_time";
             string testAdress = "test_address";
 
+            /*
             //数据库中检查比赛信息
             //检查比赛信息 开始
             MySqlCommand cmd;
@@ -100,6 +101,10 @@ namespace hot_summer
 
             conn.Close();
             //检查比赛信息 结束
+            */
+
+            //test
+            isSuccess = true;
 
             if (isSuccess)
             {
