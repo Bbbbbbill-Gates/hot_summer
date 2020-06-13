@@ -149,6 +149,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "createProForm1";
             this.Text = "createProForm1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.createProForm1_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -130,6 +130,9 @@ namespace hot_summer
             this.lastForm.Show();
         }
 
-        
+        private void createProForm1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.lastForm.Show();
+        }
     }
 }

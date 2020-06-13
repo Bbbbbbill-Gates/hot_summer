@@ -55,13 +55,13 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.直接任意ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.间接任意ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.点球ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.球门球ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.角球ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.界外球ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.球门球ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.中圈开球ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.间接任意ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.直接任意ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -131,6 +131,7 @@
             this.stop.Text = "暂停";
             this.stop.UseVisualStyleBackColor = true;
             this.stop.Click += new System.EventHandler(this.stop_Click);
+            this.stop.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.stop_PreviewKeyDown);
             // 
             // yellowCard
             // 
@@ -264,13 +265,13 @@
             // 保存ToolStripMenuItem
             // 
             this.保存ToolStripMenuItem.Name = "保存ToolStripMenuItem";
-            this.保存ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.保存ToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
             this.保存ToolStripMenuItem.Text = "保存";
             // 
             // 导入视频ToolStripMenuItem
             // 
             this.导入视频ToolStripMenuItem.Name = "导入视频ToolStripMenuItem";
-            this.导入视频ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.导入视频ToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
             this.导入视频ToolStripMenuItem.Text = "导入视频";
             this.导入视频ToolStripMenuItem.Click += new System.EventHandler(this.导入视频ToolStripMenuItem_Click);
             // 
@@ -283,20 +284,20 @@
             this.toolStripMenuItem3,
             this.toolStripMenuItem4});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(211, 128);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(124, 100);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(210, 24);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(123, 24);
             this.toolStripMenuItem1.Text = "犯规";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(210, 24);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(123, 24);
             this.toolStripMenuItem2.Text = "越位";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
@@ -318,57 +319,57 @@
             this.间接任意ToolStripMenuItem,
             this.直接任意ToolStripMenuItem});
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(210, 24);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(123, 24);
             this.toolStripMenuItem4.Text = "定位球";
-            // 
-            // 直接任意ToolStripMenuItem
-            // 
-            this.直接任意ToolStripMenuItem.Name = "直接任意ToolStripMenuItem";
-            this.直接任意ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.直接任意ToolStripMenuItem.Text = "直接任意";
-            this.直接任意ToolStripMenuItem.Click += new System.EventHandler(this.直接任意ToolStripMenuItem_Click);
-            // 
-            // 间接任意ToolStripMenuItem
-            // 
-            this.间接任意ToolStripMenuItem.Name = "间接任意ToolStripMenuItem";
-            this.间接任意ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.间接任意ToolStripMenuItem.Text = "间接任意";
-            this.间接任意ToolStripMenuItem.Click += new System.EventHandler(this.间接任意ToolStripMenuItem_Click);
             // 
             // 点球ToolStripMenuItem
             // 
             this.点球ToolStripMenuItem.Name = "点球ToolStripMenuItem";
-            this.点球ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.点球ToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
             this.点球ToolStripMenuItem.Text = "点球";
             this.点球ToolStripMenuItem.Click += new System.EventHandler(this.点球ToolStripMenuItem_Click);
-            // 
-            // 球门球ToolStripMenuItem
-            // 
-            this.球门球ToolStripMenuItem.Name = "球门球ToolStripMenuItem";
-            this.球门球ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.球门球ToolStripMenuItem.Text = "球门球";
-            this.球门球ToolStripMenuItem.Click += new System.EventHandler(this.球门球ToolStripMenuItem_Click);
             // 
             // 角球ToolStripMenuItem
             // 
             this.角球ToolStripMenuItem.Name = "角球ToolStripMenuItem";
-            this.角球ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.角球ToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
             this.角球ToolStripMenuItem.Text = "角球";
             this.角球ToolStripMenuItem.Click += new System.EventHandler(this.角球ToolStripMenuItem_Click);
             // 
             // 界外球ToolStripMenuItem
             // 
             this.界外球ToolStripMenuItem.Name = "界外球ToolStripMenuItem";
-            this.界外球ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.界外球ToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
             this.界外球ToolStripMenuItem.Text = "界外球";
             this.界外球ToolStripMenuItem.Click += new System.EventHandler(this.界外球ToolStripMenuItem_Click);
+            // 
+            // 球门球ToolStripMenuItem
+            // 
+            this.球门球ToolStripMenuItem.Name = "球门球ToolStripMenuItem";
+            this.球门球ToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.球门球ToolStripMenuItem.Text = "球门球";
+            this.球门球ToolStripMenuItem.Click += new System.EventHandler(this.球门球ToolStripMenuItem_Click);
             // 
             // 中圈开球ToolStripMenuItem
             // 
             this.中圈开球ToolStripMenuItem.Name = "中圈开球ToolStripMenuItem";
-            this.中圈开球ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.中圈开球ToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
             this.中圈开球ToolStripMenuItem.Text = "中圈开球";
             this.中圈开球ToolStripMenuItem.Click += new System.EventHandler(this.中圈开球ToolStripMenuItem_Click);
+            // 
+            // 间接任意ToolStripMenuItem
+            // 
+            this.间接任意ToolStripMenuItem.Name = "间接任意ToolStripMenuItem";
+            this.间接任意ToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.间接任意ToolStripMenuItem.Text = "间接任意";
+            this.间接任意ToolStripMenuItem.Click += new System.EventHandler(this.间接任意ToolStripMenuItem_Click);
+            // 
+            // 直接任意ToolStripMenuItem
+            // 
+            this.直接任意ToolStripMenuItem.Name = "直接任意ToolStripMenuItem";
+            this.直接任意ToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.直接任意ToolStripMenuItem.Text = "直接任意";
+            this.直接任意ToolStripMenuItem.Click += new System.EventHandler(this.直接任意ToolStripMenuItem_Click);
             // 
             // dataCollectForm
             // 
@@ -388,6 +389,7 @@
             this.Controls.Add(this.score);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "dataCollectForm";
@@ -395,6 +397,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.dataCollectForm_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.dataCollectForm_FormClosed);
             this.Load += new System.EventHandler(this.dataCollectForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataCollectForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.menuStrip1.ResumeLayout(false);

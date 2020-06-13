@@ -14,16 +14,18 @@ namespace hot_summer
 {
     public partial class gamePlay : Form
     {
-
+        private dataCollectForm data;
         /// <summary>
         /// 构造函数初始化播放窗口在屏幕中的位置
         /// </summary>
-        public gamePlay()
+        public gamePlay(dataCollectForm home)
         {
             InitializeComponent();
             int x = Screen.PrimaryScreen.WorkingArea.Left;
             int y = 200;
             this.Location = new Point(x, y);
+
+            this.data = home;
         }
 
         /// <summary>
@@ -59,6 +61,44 @@ namespace hot_summer
         {
             e.Cancel = true;
             this.Hide();
+        }
+
+        private void gamePlay_KeyDown(object sender, KeyEventArgs e)
+        {
+           /* if (this.Visible && this.axWindowsMediaPlayer1.URL != null && this.axWindowsMediaPlayer1.URL != "")
+            {
+                if (e.KeyCode == Keys.Space)
+                {
+                    MessageBox.Show("空格");
+                    if (this.axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPlaying)
+                    {
+                        this.axWindowsMediaPlayer1.Ctlcontrols.pause();
+                        this.data.set_stop("继续");
+                    }
+
+                    if (this.axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPaused)
+                    {
+                        this.axWindowsMediaPlayer1.Ctlcontrols.play();
+                        this.data.set_stop("暂停");
+                    }
+
+                    this.data.get_stop().Focus();
+                    return;
+                }
+                if (e.KeyCode == Keys.Right)
+                {
+                    MessageBox.Show("right");
+                    this.axWindowsMediaPlayer1.Ctlcontrols.fastForward();
+                    this.data.get_stop().Focus();
+                    return;
+                }
+                if (e.KeyCode == Keys.Left)
+                {
+                    this.axWindowsMediaPlayer1.Ctlcontrols.fastReverse();
+                    this.data.get_stop().Focus();
+                    return;
+                }
+            }*/
         }
     }
 }

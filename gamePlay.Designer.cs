@@ -53,6 +53,7 @@
             this.Text = "gamePlay";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.gamePlay_FormClosing);
             this.Load += new System.EventHandler(this.gamePlay_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gamePlay_KeyDown);
             this.Resize += new System.EventHandler(this.gamePlay_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
             this.ResumeLayout(false);

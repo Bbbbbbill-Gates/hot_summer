@@ -12,6 +12,7 @@ using System.Threading;
 using Timer = System.Windows.Forms.Timer;
 using System.Security.Claims;
 using MySqlX.XDevAPI.Relational;
+using System.Runtime.CompilerServices;
 
 namespace hot_summer
 {
@@ -72,6 +73,7 @@ namespace hot_summer
             this.pictureBox1.ContextMenuStrip = this.contextMenuStrip1;
 
             this.g = pictureBox1.CreateGraphics();
+
         }
 
         /// <summary>
@@ -81,7 +83,7 @@ namespace hot_summer
         /// <param name="e"></param>
         private void dataCollectForm_Load(object sender, EventArgs e)
         {
-            this.videoForm = new gamePlay();
+            this.videoForm = new gamePlay(this);
             this.player = this.videoForm.getPlayer();
             this.videoForm.Show();
         }
@@ -104,6 +106,7 @@ namespace hot_summer
                 this.nowTime = this.startTime = this.player.Ctlcontrols.currentPosition;
                 this.halfTimeChoice.SelectedIndex = 0;
                 this.isStart = true;
+                this.stop.Focus();
             }
 
         }
@@ -116,20 +119,22 @@ namespace hot_summer
         /// <param name="e"></param>
         private void stop_Click(object sender, EventArgs e)
         {
-            if (this.player.playState == WMPLib.WMPPlayState.wmppsPlaying)
+            if (this.isStart && this.player.URL != null && this.player.URL != "")
             {
-                this.player.Ctlcontrols.pause();
-                this.stop.Text = "继续";
-                return;
-            }
+                if (this.player.playState == WMPLib.WMPPlayState.wmppsPlaying)
+                {
+                    this.player.Ctlcontrols.pause();
+                    this.stop.Text = "继续";
+                    return;
+                }
 
-            if (this.player.playState == WMPLib.WMPPlayState.wmppsPaused)
-            {
-                this.player.Ctlcontrols.play();
-                this.stop.Text = "暂停";
-                return;
+                if (this.player.playState == WMPLib.WMPPlayState.wmppsPaused)
+                {
+                    this.player.Ctlcontrols.play();
+                    this.stop.Text = "暂停";
+                    return;
+                }
             }
-
         }
 
         /// <summary>
@@ -363,6 +368,7 @@ namespace hot_summer
 
             //更新当前行
             dataGridView1.CurrentCell = dataGridView1.Rows[rowIndex].Cells[0];
+            this.stop.Focus();
 
             //事件位置选择完，结束事件标记
             this.isEvent = false;
@@ -535,6 +541,50 @@ namespace hot_summer
             this.eState = dataCollectForm.e.Setpiece;
             this.setState = setPiece.directFreekick;
             MessageBox.Show("请选择事件位置！", "提示");
+        }
+
+        private void dataCollectForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Space)
+            {
+                //stop_Click(null, null);
+            }
+            if (e.KeyCode == Keys.Right)
+            {
+                this.player.Ctlcontrols.currentPosition += 1;
+                this.stop.Focus();
+                return;
+            }
+            if (e.KeyCode == Keys.Left)
+            {
+                this.player.Ctlcontrols.currentPosition -= 1;
+                this.stop.Focus();
+                return;
+            }
+        }
+
+        private void stop_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            var keycode = e.KeyCode;
+
+            if ( keycode == Keys.Left || keycode == Keys.Right)
+            {
+                e.IsInputKey = true;
+                if (keycode == Keys.Left)
+                {
+
+                }
+            }
+        }
+
+        public void set_stop(string s)
+        {
+            this.stop.Text = s;
+        }
+
+        public Button get_stop()
+        {
+            return this.stop;
         }
     }
 }
