@@ -65,40 +65,7 @@ namespace hot_summer
 
         private void gamePlay_KeyDown(object sender, KeyEventArgs e)
         {
-           /* if (this.Visible && this.axWindowsMediaPlayer1.URL != null && this.axWindowsMediaPlayer1.URL != "")
-            {
-                if (e.KeyCode == Keys.Space)
-                {
-                    MessageBox.Show("空格");
-                    if (this.axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPlaying)
-                    {
-                        this.axWindowsMediaPlayer1.Ctlcontrols.pause();
-                        this.data.set_stop("继续");
-                    }
-
-                    if (this.axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPaused)
-                    {
-                        this.axWindowsMediaPlayer1.Ctlcontrols.play();
-                        this.data.set_stop("暂停");
-                    }
-
-                    this.data.get_stop().Focus();
-                    return;
-                }
-                if (e.KeyCode == Keys.Right)
-                {
-                    MessageBox.Show("right");
-                    this.axWindowsMediaPlayer1.Ctlcontrols.fastForward();
-                    this.data.get_stop().Focus();
-                    return;
-                }
-                if (e.KeyCode == Keys.Left)
-                {
-                    this.axWindowsMediaPlayer1.Ctlcontrols.fastReverse();
-                    this.data.get_stop().Focus();
-                    return;
-                }
-            }*/
+           
         }
     }
 }
