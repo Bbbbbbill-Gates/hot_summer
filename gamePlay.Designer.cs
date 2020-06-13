@@ -36,10 +36,10 @@
             // axWindowsMediaPlayer1
             // 
             this.axWindowsMediaPlayer1.Enabled = true;
-            this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(0, 2);
+            this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(0, 3);
             this.axWindowsMediaPlayer1.Name = "axWindowsMediaPlayer1";
             this.axWindowsMediaPlayer1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWindowsMediaPlayer1.OcxState")));
-            this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(798, 446);
+            this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(798, 445);
             this.axWindowsMediaPlayer1.TabIndex = 0;
             // 
             // gamePlay
@@ -51,6 +51,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "gamePlay";
             this.Text = "gamePlay";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.gamePlay_FormClosing);
             this.Load += new System.EventHandler(this.gamePlay_Load);
             this.Resize += new System.EventHandler(this.gamePlay_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();

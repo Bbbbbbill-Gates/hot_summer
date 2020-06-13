@@ -139,7 +139,7 @@ namespace hot_summer
         /// <param name="e"></param>
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (this.isStart && this.player.playState == WMPLib.WMPPlayState.wmppsPlaying)
+            if (this.videoForm.Visible && this.isStart && this.player.playState == WMPLib.WMPPlayState.wmppsPlaying)
             {
                 double dif = this.player.Ctlcontrols.currentPosition - this.nowTime;
                 this.nowTime = this.nowTime + dif;
@@ -193,6 +193,12 @@ namespace hot_summer
         /// <param name="e"></param>
         private void halfTime_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (this.videoForm.Visible == false || this.player.URL == null || this.player.URL == "")
+            {
+                MessageBox.Show("还未打开视频!", "提示");
+                return;
+            }
+
             if (this.halfTimeChoice.SelectedIndex == 0)
             {
                 this.nowTime = this.halfTime = this.player.Ctlcontrols.currentPosition;
@@ -216,12 +222,18 @@ namespace hot_summer
         /// <param name="e"></param>
         private void 导入视频ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (this.videoForm.Visible == false)
+            {
+                this.videoForm.Visible = true;
+            }
+
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "媒体文件（所有类型）|*.mp4;*.mp3;*.mpeg;*.wma;*.wmv;*.wav;*.avi";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 player.URL = openFileDialog1.FileName;
             }
+            
         }
 
         /// <summary>
@@ -269,7 +281,6 @@ namespace hot_summer
             p.X = e1.X;
             p.Y = Math.Abs(e1.Y - 450);
             //MessageBox.Show(p.ToString());
-            //MessageBox.Show(MousePosition.ToString());
 
             //判断是左击还是右击
             if (e1.Button != MouseButtons.Left) return;
@@ -328,34 +339,33 @@ namespace hot_summer
                         dataGridView1[3, rowIndex].Value = "角球";
                     }
                 }
-
-                //事件位置选择完，结束事件标记
-                this.isEvent = false;
-                return;
             }
-
-            //左击事件
-            dataGridView1[0, rowIndex].Value = rowIndex + 1;
-            dataGridView1[1, rowIndex].Value = calTime.ToString("mm : ss");
-            dataGridView1[2, rowIndex].Value = p.ToString();
-            dataGridView1[3, rowIndex].Value = "主裁判员位置移动";
-
-            //更新当前行
-            dataGridView1.CurrentCell = dataGridView1.Rows[rowIndex].Cells[0];
+            else
+            {
+                //左击事件
+                dataGridView1[0, rowIndex].Value = rowIndex + 1;
+                dataGridView1[1, rowIndex].Value = calTime.ToString("mm : ss");
+                dataGridView1[2, rowIndex].Value = p.ToString();
+                dataGridView1[3, rowIndex].Value = "主裁判员位置移动";
+            }
             //更新裁判坐标
             if (!this.isEvent)
             {
-                this.refereeP = p;
+                this.now = e1.Location;
+                if (this.st.X != 0 && this.st.Y != 0)
+                {
+                    Pen pen = new Pen(Color.Blue, 2);
+                    g.DrawLine(pen, this.st, this.now);
+                    pen.Dispose();
+                }
+                this.st = this.now;
             }
 
-            this.ed = e1.Location;
-            if (this.st.X != 0 && this.st.Y != 0)
-            {
-                Pen pen = new Pen(Color.Blue, 2);
-                g.DrawLine(pen, this.st, this.ed);
-                pen.Dispose();
-            }
-            this.st = this.ed;
+            //更新当前行
+            dataGridView1.CurrentCell = dataGridView1.Rows[rowIndex].Cells[0];
+
+            //事件位置选择完，结束事件标记
+            this.isEvent = false;
         }
 
         /// <summary>
@@ -370,18 +380,21 @@ namespace hot_summer
             {
                 return;
             }
+            if (this.isEvent) return;
 
             ContextMenuStrip menu = (ContextMenuStrip)sender;
             this.refereeP = new Point(MousePosition.X - 777, Math.Abs(MousePosition.Y - 628));
-
-            this.ed = new Point(Math.Abs(MousePosition.X - 818), Math.Abs(MousePosition.Y - 489));
+            
+            Point pp = this.pictureBox1.PointToClient(MousePosition);
+            this.now = new Point(pp.X, pp.Y);
+            //MessageBox.Show(this.now.ToString());
             if (this.st.X != 0 && this.st.Y != 0)
             {
                 Pen pen = new Pen(Color.Blue, 2);
-                g.DrawLine(pen, this.st, this.ed);
+                g.DrawLine(pen, this.st, this.now);
                 pen.Dispose();
             }
-            this.st = this.ed;
+            this.st = this.now;
         }
 
         //射门

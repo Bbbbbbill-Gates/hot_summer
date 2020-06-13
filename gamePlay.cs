@@ -54,7 +54,11 @@ namespace hot_summer
         {
             axWindowsMediaPlayer1.Size = new Size(this.Size.Width, this.Size.Height-35);
         }
-        
 
+        private void gamePlay_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+        }
     }
 }
