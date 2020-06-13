@@ -12,15 +12,17 @@ namespace hot_summer
 {
     public partial class createProForm2 : Form
     {
+        private optForm home;
         private createProForm1 last;
         private bool isOk_team1 = false;
         private bool isOk_team2 = false;
         private bool isOk_referee = false;
 
-        public createProForm2(createProForm1 front)
+        public createProForm2(createProForm1 front, optForm opt)
         {
             InitializeComponent();
             this.last = front;
+            this.home = opt;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -55,7 +57,7 @@ namespace hot_summer
                 return;
             }
 
-            dataCollectForm newOpt = new dataCollectForm();
+            dataCollectForm newOpt = new dataCollectForm(this.home);
             this.Hide();
             newOpt.Show();
         }

@@ -16,7 +16,7 @@ namespace hot_summer
         private string gameCategory;
         private DateTime gameTime;
         private string address;
-        private Form lastForm;
+        private optForm lastForm;
         public createProForm1(optForm optform)
         {
             InitializeComponent();
@@ -109,7 +109,7 @@ namespace hot_summer
             if (isSuccess)
             {
                 this.Hide();
-                createProForm2 next = new createProForm2(this);
+                createProForm2 next = new createProForm2(this, this.lastForm);
                 next.StartPosition = FormStartPosition.CenterScreen;
                 next.Show();
             }

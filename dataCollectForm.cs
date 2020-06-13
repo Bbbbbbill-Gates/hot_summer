@@ -11,26 +11,49 @@ using System.Windows.Forms;
 using System.Threading;
 using Timer = System.Windows.Forms.Timer;
 using System.Security.Claims;
+using MySqlX.XDevAPI.Relational;
 
 namespace hot_summer
 {
     public partial class dataCollectForm : Form
     {
+        //用于返回主页面
+        private optForm home;
 
+        //用于视频播放页面获取时间等相关操作
         private gamePlay videoForm;
         private AxWindowsMediaPlayer player;
+
+        //时间记录
         private double startTime;
         private double halfTime;
         private double nowTime;
         private DateTime calTime;
+
+        //是否开始
         private bool isStart = false;
+        
+        //用于右击事件的坐标记录
+        private Point refereeP;
+        private bool isEvent = false;
+
+        private enum e{ foul, Offside, shoot, Setpiece };
+        private e eState;
+        private enum setPiece { directFreekick, indirectFreekick, penalty, goalKick, cornerKick, outOfBounds, midcourtKickOff };
+        private setPiece setState;
+
+        //画裁判员路线
+        private Point st, ed, now;
+        private Graphics g;
 
         /// <summary>
         /// 构造函数初始化调整操作窗口在屏幕上的位置
         /// </summary>
-        public dataCollectForm()
+        public dataCollectForm(optForm opt)
         {
             InitializeComponent();
+
+            this.home = opt;
 
             //调整位置
             int w = Screen.GetWorkingArea(this).Width;
@@ -47,6 +70,8 @@ namespace hot_summer
             this.coordinateOfEvent.Width = this.dataGridView1.Size.Width / 7;
 
             this.pictureBox1.ContextMenuStrip = this.contextMenuStrip1;
+
+            this.g = pictureBox1.CreateGraphics();
         }
 
         /// <summary>
@@ -161,6 +186,11 @@ namespace hot_summer
             this.Cursor = Cursors.Default;
         }
 
+        /// <summary>
+        /// 上下半场选择后修改时间
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void halfTime_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (this.halfTimeChoice.SelectedIndex == 0)
@@ -179,6 +209,11 @@ namespace hot_summer
             }
         }
 
+        /// <summary>
+        /// 导入视频
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void 导入视频ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -187,6 +222,306 @@ namespace hot_summer
             {
                 player.URL = openFileDialog1.FileName;
             }
+        }
+
+        /// <summary>
+        /// 窗口关闭前提示
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dataCollectForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult res =  MessageBox.Show("即将关闭程序，是否保存", "提示", MessageBoxButtons.YesNo);
+
+            if (res == DialogResult.OK)
+            {
+
+            }
+            else
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// 窗口关闭后打开旧的窗口
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dataCollectForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.videoForm.Close();
+            this.home.Show();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            //比赛未开始不做操作
+            if (!this.isStart)
+            {
+                MessageBox.Show("比赛还未开始，请导入视频并选择开始！", "提示");
+                return;
+            }
+           
+            //获取坐标            
+            MouseEventArgs e1 = (MouseEventArgs)e;
+            Point p = new Point();
+            p.X = e1.X;
+            p.Y = Math.Abs(e1.Y - 450);
+            //MessageBox.Show(p.ToString());
+            //MessageBox.Show(MousePosition.ToString());
+
+            //判断是左击还是右击
+            if (e1.Button != MouseButtons.Left) return;
+            
+            int rowIndex = dataGridView1.Rows.Add();
+
+            //右击事件
+            if (this.isEvent)
+            {
+                dataGridView1[0, rowIndex].Value = rowIndex + 1;
+                dataGridView1[1, rowIndex].Value = calTime.ToString("mm : ss");
+                dataGridView1[2, rowIndex].Value = this.refereeP.ToString();
+                dataGridView1[4, rowIndex].Value = p.ToString();
+
+                if (this.eState == dataCollectForm.e.shoot)
+                {
+                    dataGridView1[3, rowIndex].Value = "射门";
+                }
+                if (this.eState == dataCollectForm.e.foul)
+                {
+                    dataGridView1[3, rowIndex].Value = "犯规";
+                }
+                if (this.eState == dataCollectForm.e.Offside)
+                {
+                    dataGridView1[3, rowIndex].Value = "越位";
+                }
+                if (this.eState == dataCollectForm.e.Setpiece)
+                {
+                    //dataGridView1[3, rowIndex].Value = "射门";
+                    if (this.setState == setPiece.penalty)
+                    {
+                        dataGridView1[3, rowIndex].Value = "点球";
+                    }
+                    if (this.setState == setPiece.outOfBounds)
+                    {
+                        dataGridView1[3, rowIndex].Value = "界外球";
+                    }
+                    if (this.setState == setPiece.midcourtKickOff)
+                    {
+                        dataGridView1[3, rowIndex].Value = "中圈开球";
+                    }
+                    if (this.setState == setPiece.indirectFreekick)
+                    {
+                        dataGridView1[3, rowIndex].Value = "间接任意球";
+                    }
+                    if (this.setState == setPiece.goalKick)
+                    {
+                        dataGridView1[3, rowIndex].Value = "球门球";
+                    }
+                    if (this.setState == setPiece.directFreekick)
+                    {
+                        dataGridView1[3, rowIndex].Value = "直接任意球";
+                    }
+                    if (this.setState == setPiece.cornerKick)
+                    {
+                        dataGridView1[3, rowIndex].Value = "角球";
+                    }
+                }
+
+                //事件位置选择完，结束事件标记
+                this.isEvent = false;
+                return;
+            }
+
+            //左击事件
+            dataGridView1[0, rowIndex].Value = rowIndex + 1;
+            dataGridView1[1, rowIndex].Value = calTime.ToString("mm : ss");
+            dataGridView1[2, rowIndex].Value = p.ToString();
+            dataGridView1[3, rowIndex].Value = "主裁判员位置移动";
+
+            //更新当前行
+            dataGridView1.CurrentCell = dataGridView1.Rows[rowIndex].Cells[0];
+            //更新裁判坐标
+            if (!this.isEvent)
+            {
+                this.refereeP = p;
+            }
+
+            this.ed = e1.Location;
+            if (this.st.X != 0 && this.st.Y != 0)
+            {
+                Pen pen = new Pen(Color.Blue, 2);
+                g.DrawLine(pen, this.st, this.ed);
+                pen.Dispose();
+            }
+            this.st = this.ed;
+        }
+
+        /// <summary>
+        /// 打开菜单前获取鼠标右击位置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+            //比赛未开始不做操作
+            if (!this.isStart)
+            {
+                return;
+            }
+
+            ContextMenuStrip menu = (ContextMenuStrip)sender;
+            this.refereeP = new Point(MousePosition.X - 777, Math.Abs(MousePosition.Y - 628));
+
+            this.ed = new Point(Math.Abs(MousePosition.X - 818), Math.Abs(MousePosition.Y - 489));
+            if (this.st.X != 0 && this.st.Y != 0)
+            {
+                Pen pen = new Pen(Color.Blue, 2);
+                g.DrawLine(pen, this.st, this.ed);
+                pen.Dispose();
+            }
+            this.st = this.ed;
+        }
+
+        //射门
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            //比赛未开始不做操作
+            if (!this.isStart)
+            {
+                MessageBox.Show("比赛还未开始，请导入视频并选择开始！", "提示");
+                return;
+            }
+            this.isEvent = true;
+            this.eState = dataCollectForm.e.shoot;
+            MessageBox.Show("请选择事件位置！", "提示");
+        }
+
+        //越位
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            //比赛未开始不做操作
+            if (!this.isStart)
+            {
+                MessageBox.Show("比赛还未开始，请导入视频并选择开始！", "提示");
+                return;
+            }
+            this.isEvent = true;
+            this.eState = dataCollectForm.e.Offside;
+            MessageBox.Show("请选择事件位置！", "提示");
+        }
+
+        //犯规
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            //比赛未开始不做操作
+            if (!this.isStart)
+            {
+                MessageBox.Show("比赛还未开始，请导入视频并选择开始！", "提示");
+                return;
+            }
+            this.isEvent = true;
+            this.eState = dataCollectForm.e.foul;
+            MessageBox.Show("请选择事件位置！", "提示");
+        }
+
+        private void 点球ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //比赛未开始不做操作
+            if (!this.isStart)
+            {
+                MessageBox.Show("比赛还未开始，请导入视频并选择开始！", "提示");
+                return;
+            }
+            this.isEvent = true;
+            this.eState = dataCollectForm.e.Setpiece;
+            this.setState = setPiece.penalty;
+            MessageBox.Show("请选择事件位置！", "提示");
+        }
+
+        private void 角球ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //比赛未开始不做操作
+            if (!this.isStart)
+            {
+                MessageBox.Show("比赛还未开始，请导入视频并选择开始！", "提示");
+                return;
+            }
+            this.isEvent = true;
+            this.eState = dataCollectForm.e.Setpiece;
+            this.setState = setPiece.cornerKick;
+            MessageBox.Show("请选择事件位置！", "提示");
+        }
+
+        private void 界外球ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //比赛未开始不做操作
+            if (!this.isStart)
+            {
+                MessageBox.Show("比赛还未开始，请导入视频并选择开始！", "提示");
+                return;
+            }
+            this.isEvent = true;
+            this.eState = dataCollectForm.e.Setpiece;
+            this.setState = setPiece.outOfBounds;
+            MessageBox.Show("请选择事件位置！", "提示");
+        }
+
+        private void 球门球ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //比赛未开始不做操作
+            if (!this.isStart)
+            {
+                MessageBox.Show("比赛还未开始，请导入视频并选择开始！", "提示");
+                return;
+            }
+            this.isEvent = true;
+            this.eState = dataCollectForm.e.Setpiece;
+            this.setState = setPiece.goalKick;
+            MessageBox.Show("请选择事件位置！", "提示");
+        }
+
+        private void 中圈开球ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //比赛未开始不做操作
+            if (!this.isStart)
+            {
+                MessageBox.Show("比赛还未开始，请导入视频并选择开始！", "提示");
+                return;
+            }
+            this.isEvent = true;
+            this.eState = dataCollectForm.e.Setpiece;
+            this.setState = setPiece.midcourtKickOff;
+            MessageBox.Show("请选择事件位置！", "提示");
+        }
+
+        private void 间接任意ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //比赛未开始不做操作
+            if (!this.isStart)
+            {
+                MessageBox.Show("比赛还未开始，请导入视频并选择开始！", "提示");
+                return;
+            }
+            this.isEvent = true;
+            this.eState = dataCollectForm.e.Setpiece;
+            this.setState = setPiece.indirectFreekick;
+            MessageBox.Show("请选择事件位置！", "提示");
+        }
+
+        private void 直接任意ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //比赛未开始不做操作
+            if (!this.isStart)
+            {
+                MessageBox.Show("比赛还未开始，请导入视频并选择开始！", "提示");
+                return;
+            }
+            this.isEvent = true;
+            this.eState = dataCollectForm.e.Setpiece;
+            this.setState = setPiece.directFreekick;
+            MessageBox.Show("请选择事件位置！", "提示");
         }
     }
 }
