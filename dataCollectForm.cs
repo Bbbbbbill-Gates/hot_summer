@@ -44,7 +44,7 @@ namespace hot_summer
         private setPiece setState;
 
         //画裁判员路线
-        private Point st, ed, now;
+        private Point st, now;
         private Graphics g;
 
         /// <summary>
@@ -560,20 +560,6 @@ namespace hot_summer
                 this.player.Ctlcontrols.currentPosition -= 1;
                 this.stop.Focus();
                 return;
-            }
-        }
-
-        private void stop_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            var keycode = e.KeyCode;
-
-            if ( keycode == Keys.Left || keycode == Keys.Right)
-            {
-                e.IsInputKey = true;
-                if (keycode == Keys.Left)
-                {
-
-                }
             }
         }
 

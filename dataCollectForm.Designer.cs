@@ -131,7 +131,6 @@
             this.stop.Text = "暂停";
             this.stop.UseVisualStyleBackColor = true;
             this.stop.Click += new System.EventHandler(this.stop_Click);
-            this.stop.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.stop_PreviewKeyDown);
             // 
             // yellowCard
             // 
