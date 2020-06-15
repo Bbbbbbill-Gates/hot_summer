@@ -38,11 +38,12 @@
             // 
             // button3
             // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button3.BackColor = System.Drawing.SystemColors.Control;
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("幼圆", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button3.Location = new System.Drawing.Point(373, 352);
+            this.button3.Location = new System.Drawing.Point(439, 352);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(390, 110);
             this.button3.TabIndex = 5;
@@ -51,11 +52,12 @@
             // 
             // button2
             // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.BackColor = System.Drawing.SystemColors.Control;
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("幼圆", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button2.Location = new System.Drawing.Point(373, 236);
+            this.button2.Location = new System.Drawing.Point(439, 236);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(390, 110);
             this.button2.TabIndex = 4;
@@ -64,11 +66,12 @@
             // 
             // button1
             // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.BackColor = System.Drawing.SystemColors.Control;
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("幼圆", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button1.Location = new System.Drawing.Point(373, 120);
+            this.button1.Location = new System.Drawing.Point(439, 120);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(390, 110);
             this.button1.TabIndex = 3;
@@ -109,6 +112,7 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "optForm";
             this.Text = "optForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.optForm_FormClosed);
