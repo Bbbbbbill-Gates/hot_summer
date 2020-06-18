@@ -61,6 +61,24 @@ namespace hot_summer
         {
             e.Cancel = true;
             this.Hide();
+
+
+            if (data.get_isStart() && this.axWindowsMediaPlayer1.URL != null && this.axWindowsMediaPlayer1.URL != "")
+            {
+                if (this.axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPlaying)
+                {
+                    this.axWindowsMediaPlayer1.Ctlcontrols.pause();
+                    data.set_stop("继续");
+                    return;
+                }
+
+                if (this.axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPaused)
+                {
+                    this.axWindowsMediaPlayer1.Ctlcontrols.play();
+                    data.set_stop("暂停");
+                    return;
+                }
+            }
         }
 
         private void gamePlay_KeyDown(object sender, KeyEventArgs e)

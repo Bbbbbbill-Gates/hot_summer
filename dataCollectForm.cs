@@ -107,7 +107,7 @@ namespace hot_summer
                 this.nowTime = this.startTime = this.player.Ctlcontrols.currentPosition;
                 this.halfTimeChoice.SelectedIndex = 0;
                 this.isStart = true;
-                this.stop.Focus();
+                this.dataGridView1.Focus();
             }
 
         }
@@ -369,7 +369,7 @@ namespace hot_summer
 
             //更新当前行
             dataGridView1.CurrentCell = dataGridView1.Rows[rowIndex].Cells[0];
-            this.stop.Focus();
+            this.dataGridView1.Focus();
 
             //事件位置选择完，结束事件标记
             this.isEvent = false;
@@ -548,18 +548,35 @@ namespace hot_summer
         {
             if (e.KeyCode == Keys.Space)
             {
+                if (this.isStart && this.player.URL != null && this.player.URL != "")
+                {
+                    if (this.player.playState == WMPLib.WMPPlayState.wmppsPlaying)
+                    {
+                        this.player.Ctlcontrols.pause();
+                        this.stop.Text = "继续";
+                        
+                    }
+                    else if (this.player.playState == WMPLib.WMPPlayState.wmppsPaused)
+                    {
+                        this.player.Ctlcontrols.play();
+                        this.stop.Text = "暂停";
+                        
+                    }
+                }
+
+                e.Handled = true;
                 //stop_Click(null, null);
             }
             if (e.KeyCode == Keys.Right)
             {
                 this.player.Ctlcontrols.currentPosition += 1;
-                this.stop.Focus();
+                this.dataGridView1.Focus();
                 return;
             }
             if (e.KeyCode == Keys.Left)
             {
                 this.player.Ctlcontrols.currentPosition -= 1;
-                this.stop.Focus();
+                this.dataGridView1.Focus();
                 return;
             }
         }
@@ -599,5 +616,14 @@ namespace hot_summer
             }
         }
 
+        public bool get_isStart()
+        {
+            return this.isStart;
+        }
+           
+        public void set_stop(string s)
+        {
+            this.stop.Text = s;
+        }
     }
 }
