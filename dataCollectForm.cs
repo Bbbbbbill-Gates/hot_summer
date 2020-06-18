@@ -567,6 +567,7 @@ namespace hot_summer
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView d = (DataGridView)sender;
+            if (e.ColumnIndex != 3) return;
             string con = (string)d[e.ColumnIndex, e.RowIndex].Value;
             if (con == null) return;
             if (con.Contains("犯规") && ! con.Contains("红牌") && ! con.Contains("黄牌"))
