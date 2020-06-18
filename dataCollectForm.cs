@@ -13,6 +13,7 @@ using Timer = System.Windows.Forms.Timer;
 using System.Security.Claims;
 using MySqlX.XDevAPI.Relational;
 using System.Runtime.CompilerServices;
+using Microsoft.VisualBasic;
 
 namespace hot_summer
 {
@@ -563,14 +564,39 @@ namespace hot_summer
             }
         }
 
-        public void set_stop(string s)
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            this.stop.Text = s;
+            DataGridView d = (DataGridView)sender;
+            string con = (string)d[e.ColumnIndex, e.RowIndex].Value;
+            if (con == null) return;
+            if (con.Contains("犯规") && ! con.Contains("红牌") && ! con.Contains("黄牌"))
+            {
+                DialogResult dialog = MessageBox.Show("是否红黄牌", "提示", MessageBoxButtons.YesNo);
+                if (dialog == DialogResult.Yes)
+                {
+                    d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + Interaction.InputBox("请输入犯规球员信息和红黄牌", "提示", "", -1, -1);
+                }
+            }
+            else if(!con.Contains("越位"))
+            {
+                DialogResult dialog = MessageBox.Show("是否进球", "提示", MessageBoxButtons.YesNo);
+                if (dialog == DialogResult.Yes)
+                {
+                    d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + Interaction.InputBox("请输入得分球队和球员信息和红黄牌\n格式：主客队 XX号 + ......", "提示", "", -1, -1);
+                    string s = (string)d[e.ColumnIndex, e.RowIndex].Value;
+                    int t;
+                    if (s.Contains("主队")) t = 3;
+                    else t = 7;
+                    
+                    string ss = this.score.Text;
+                    int num = (int)(this.score.Text[t]);
+                    num += 1;
+                    ss = ss.Remove(t, 1);
+                    ss = ss.Insert(t, Convert.ToString(num - 48));
+                    this.score.Text = ss;
+                }
+            }
         }
 
-        public Button get_stop()
-        {
-            return this.stop;
-        }
     }
 }
