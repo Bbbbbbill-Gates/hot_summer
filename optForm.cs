@@ -50,7 +50,7 @@ namespace hot_summer
         /// <param name="e"></param>
         private void optForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            System.Environment.Exit(0);
         }
 
         /// <summary>

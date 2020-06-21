@@ -652,6 +652,15 @@ namespace hot_summer
             }
             else if(!con.Contains("越位") && !con.Contains("界外球"))
             {
+                int team = -1;
+                using (TeamForm frm = new TeamForm())
+                {
+                    if (frm.ShowDialog() == DialogResult.OK)
+                    {
+                        team = frm.get_team();
+                    }
+                }
+
                 int goal = -1;
                 using (GoalForm frm = new GoalForm())
                 {
@@ -669,28 +678,29 @@ namespace hot_summer
                 else if (goal == 1)
                 {
                     d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + "乌龙";
+                    this.alter_score(team);
                 }
                 else if (goal == 2)
                 {
                     d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + "进球";
+                    this.alter_score(team);
                 }
 
-                /*if (dialog == DialogResult.Yes)
-                {
-                    d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + Interaction.InputBox("请输入得分球队和球员信息和红黄牌\n格式：主客队 XX号 + ......", "提示", "", -1, -1);
-                    string s = (string)d[e.ColumnIndex, e.RowIndex].Value;
-                    int t;
-                    if (s.Contains("主队")) t = 3;
-                    else t = 7;
-
-                    string ss = this.score.Text;
-                    int num = (int)(this.score.Text[t]);
-                    num += 1;
-                    ss = ss.Remove(t, 1);
-                    ss = ss.Insert(t, Convert.ToString(num - 48));
-                    this.score.Text = ss;
-                }*/
             }
+        }
+
+        private void alter_score(int team)
+        {
+            int t;
+            if (team == 0) t = 3;
+            else t = 7;
+
+            string ss = this.score.Text;
+            int num = (int)(this.score.Text[t]);
+            num += 1;
+            ss = ss.Remove(t, 1);
+            ss = ss.Insert(t, Convert.ToString(num - 48));
+            this.score.Text = ss;
         }
 
         public bool get_isStart()

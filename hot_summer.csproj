@@ -104,6 +104,12 @@
     <Compile Include="signIn.Designer.cs">
       <DependentUpon>signIn.cs</DependentUpon>
     </Compile>
+    <Compile Include="TeamForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TeamForm.Designer.cs">
+      <DependentUpon>TeamForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="CardForm.resx">
       <DependentUpon>CardForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -139,6 +145,9 @@
     </Compile>
     <EmbeddedResource Include="signIn.resx">
       <DependentUpon>signIn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TeamForm.resx">
+      <DependentUpon>TeamForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -67,10 +67,10 @@
             // card_lbl
             // 
             this.card_lbl.AutoSize = true;
-            this.card_lbl.Font = new System.Drawing.Font("微软雅黑", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.card_lbl.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.card_lbl.Location = new System.Drawing.Point(12, 9);
             this.card_lbl.Name = "card_lbl";
-            this.card_lbl.Size = new System.Drawing.Size(206, 31);
+            this.card_lbl.Size = new System.Drawing.Size(164, 25);
             this.card_lbl.TabIndex = 3;
             this.card_lbl.Text = "请选择纪律处罚：";
             // 
@@ -85,7 +85,7 @@
             this.Controls.Add(this.button1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "CardForm";
-            this.Text = "CardForm";
+            this.Text = "提示";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CardForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
