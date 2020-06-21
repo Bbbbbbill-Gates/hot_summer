@@ -20,6 +20,7 @@ namespace hot_summer
             //Application.Run(new dataCollectForm(new optForm()));
             //Application.Run(new createProForm2(null));
             Application.Run(new signIn());
+            //Application.Run(new homepage(new optForm()));
         }
     }
 }

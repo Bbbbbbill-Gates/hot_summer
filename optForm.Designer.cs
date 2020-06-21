@@ -84,6 +84,7 @@
             this.headPic_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.headPic_btn.BackColor = System.Drawing.SystemColors.Control;
             this.headPic_btn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("headPic_btn.BackgroundImage")));
+            this.headPic_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.headPic_btn.Location = new System.Drawing.Point(804, 12);
             this.headPic_btn.Name = "headPic_btn";
             this.headPic_btn.Size = new System.Drawing.Size(50, 50);

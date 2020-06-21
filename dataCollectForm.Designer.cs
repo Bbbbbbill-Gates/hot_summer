@@ -35,8 +35,6 @@
             this.halfTimeChoice = new System.Windows.Forms.ComboBox();
             this.start = new System.Windows.Forms.Button();
             this.stop = new System.Windows.Forms.Button();
-            this.yellowCard = new System.Windows.Forms.Button();
-            this.redCard = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -48,6 +46,7 @@
             this.refereeData = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.菜单ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.结束ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.导入视频ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -131,34 +130,6 @@
             this.stop.Text = "暂停";
             this.stop.UseVisualStyleBackColor = true;
             this.stop.Click += new System.EventHandler(this.stop_Click);
-            // 
-            // yellowCard
-            // 
-            this.yellowCard.BackColor = System.Drawing.Color.Gold;
-            this.yellowCard.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.yellowCard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.yellowCard.Font = new System.Drawing.Font("宋体", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.yellowCard.Location = new System.Drawing.Point(652, 30);
-            this.yellowCard.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.yellowCard.Name = "yellowCard";
-            this.yellowCard.Size = new System.Drawing.Size(131, 85);
-            this.yellowCard.TabIndex = 5;
-            this.yellowCard.Text = "黄牌";
-            this.yellowCard.UseVisualStyleBackColor = false;
-            // 
-            // redCard
-            // 
-            this.redCard.BackColor = System.Drawing.Color.Crimson;
-            this.redCard.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.redCard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.redCard.Font = new System.Drawing.Font("宋体", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.redCard.Location = new System.Drawing.Point(808, 29);
-            this.redCard.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.redCard.Name = "redCard";
-            this.redCard.Size = new System.Drawing.Size(131, 85);
-            this.redCard.TabIndex = 6;
-            this.redCard.Text = "红牌";
-            this.redCard.UseVisualStyleBackColor = false;
             // 
             // pictureBox1
             // 
@@ -256,17 +227,26 @@
             // 菜单ToolStripMenuItem
             // 
             this.菜单ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.结束ToolStripMenuItem,
             this.保存ToolStripMenuItem,
             this.导入视频ToolStripMenuItem});
             this.菜单ToolStripMenuItem.Name = "菜单ToolStripMenuItem";
             this.菜单ToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.菜单ToolStripMenuItem.Text = "菜单";
             // 
+            // 结束ToolStripMenuItem
+            // 
+            this.结束ToolStripMenuItem.Name = "结束ToolStripMenuItem";
+            this.结束ToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.结束ToolStripMenuItem.Text = "结束";
+            this.结束ToolStripMenuItem.Click += new System.EventHandler(this.结束ToolStripMenuItem_Click);
+            // 
             // 保存ToolStripMenuItem
             // 
             this.保存ToolStripMenuItem.Name = "保存ToolStripMenuItem";
             this.保存ToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
             this.保存ToolStripMenuItem.Text = "保存";
+            this.保存ToolStripMenuItem.Click += new System.EventHandler(this.保存ToolStripMenuItem_Click);
             // 
             // 导入视频ToolStripMenuItem
             // 
@@ -380,8 +360,6 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.refereeData);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.redCard);
-            this.Controls.Add(this.yellowCard);
             this.Controls.Add(this.stop);
             this.Controls.Add(this.start);
             this.Controls.Add(this.halfTimeChoice);
@@ -415,8 +393,6 @@
         private System.Windows.Forms.ComboBox halfTimeChoice;
         private System.Windows.Forms.Button start;
         private System.Windows.Forms.Button stop;
-        private System.Windows.Forms.Button yellowCard;
-        private System.Windows.Forms.Button redCard;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.DataGridView dataGridView1;
@@ -442,5 +418,6 @@
         private System.Windows.Forms.ToolStripMenuItem 中圈开球ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 间接任意ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 直接任意ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 结束ToolStripMenuItem;
     }
 }

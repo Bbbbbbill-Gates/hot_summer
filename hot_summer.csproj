@@ -48,6 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CardForm.Designer.cs">
+      <DependentUpon>CardForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="createProForm1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +78,12 @@
     <Compile Include="gamePlay.Designer.cs">
       <DependentUpon>gamePlay.cs</DependentUpon>
     </Compile>
+    <Compile Include="GoalForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GoalForm.Designer.cs">
+      <DependentUpon>GoalForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="homepage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +104,9 @@
     <Compile Include="signIn.Designer.cs">
       <DependentUpon>signIn.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CardForm.resx">
+      <DependentUpon>CardForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="createProForm1.resx">
       <DependentUpon>createProForm1.cs</DependentUpon>
     </EmbeddedResource>
@@ -103,6 +118,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gamePlay.resx">
       <DependentUpon>gamePlay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GoalForm.resx">
+      <DependentUpon>GoalForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="homepage.resx">
       <DependentUpon>homepage.cs</DependentUpon>

@@ -102,11 +102,18 @@ namespace hot_summer
                 this.halfTimeChoice.Focus();
                 return;
             }    
+            if ( this.player.URL == null || this.player.URL == "")
+            {
+                MessageBox.Show("未打开视频！", "提示");
+                return;
+            }
             if (! this.isStart)
             {
                 this.nowTime = this.startTime = this.player.Ctlcontrols.currentPosition;
                 this.halfTimeChoice.SelectedIndex = 0;
                 this.isStart = true;
+                this.player.Ctlcontrols.play();
+                this.stop.Text = "暂停";
                 this.dataGridView1.Focus();
             }
 
@@ -240,6 +247,27 @@ namespace hot_summer
                 player.URL = openFileDialog1.FileName;
             }
             
+        }
+
+        /// <summary>
+        /// 菜单结束
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void 结束ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //DialogResult res =  MessageBox.Show("是否保存当前进度", "提示", MessageBoxButtons.YesNo);
+            this.Close();
+        }
+
+        /// <summary>
+        /// 菜单保存
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void 保存ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
 
         /// <summary>
@@ -544,6 +572,11 @@ namespace hot_summer
             MessageBox.Show("请选择事件位置！", "提示");
         }
 
+        /// <summary>
+        /// 检测按键实现快进快退和暂停
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dataCollectForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Space)
@@ -581,6 +614,11 @@ namespace hot_summer
             }
         }
 
+        /// <summary>
+        /// 双击选择事件的相关信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView d = (DataGridView)sender;
@@ -589,30 +627,69 @@ namespace hot_summer
             if (con == null) return;
             if (con.Contains("犯规") && ! con.Contains("红牌") && ! con.Contains("黄牌"))
             {
-                DialogResult dialog = MessageBox.Show("是否红黄牌", "提示", MessageBoxButtons.YesNo);
-                if (dialog == DialogResult.Yes)
+                int card = -1;
+                using (CardForm frm = new CardForm())
                 {
-                    d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + Interaction.InputBox("请输入犯规球员信息和红黄牌", "提示", "", -1, -1);
+                    frm.StartPosition = FormStartPosition.CenterParent;
+                    if (frm.ShowDialog() == DialogResult.OK)
+                    {
+                        card = frm.get_card();
+                    }
+                }
+
+                if (card == 0)
+                {
+                    d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + "无牌";
+                }
+                else if (card == 1)
+                {
+                    d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + "黄牌";
+                }
+                else if (card == 2)
+                {
+                    d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + "红牌";
                 }
             }
-            else if(!con.Contains("越位"))
+            else if(!con.Contains("越位") && !con.Contains("界外球"))
             {
-                DialogResult dialog = MessageBox.Show("是否进球", "提示", MessageBoxButtons.YesNo);
-                if (dialog == DialogResult.Yes)
+                int goal = -1;
+                using (GoalForm frm = new GoalForm())
+                {
+                    frm.StartPosition = FormStartPosition.CenterParent;
+                    if (frm.ShowDialog() == DialogResult.OK)
+                    {
+                        goal = frm.get_goal();
+                    }
+                }
+
+                if (goal == 0)
+                {
+                    d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + "未进球";
+                }
+                else if (goal == 1)
+                {
+                    d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + "乌龙";
+                }
+                else if (goal == 2)
+                {
+                    d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + "进球";
+                }
+
+                /*if (dialog == DialogResult.Yes)
                 {
                     d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + Interaction.InputBox("请输入得分球队和球员信息和红黄牌\n格式：主客队 XX号 + ......", "提示", "", -1, -1);
                     string s = (string)d[e.ColumnIndex, e.RowIndex].Value;
                     int t;
                     if (s.Contains("主队")) t = 3;
                     else t = 7;
-                    
+
                     string ss = this.score.Text;
                     int num = (int)(this.score.Text[t]);
                     num += 1;
                     ss = ss.Remove(t, 1);
                     ss = ss.Insert(t, Convert.ToString(num - 48));
                     this.score.Text = ss;
-                }
+                }*/
             }
         }
 
@@ -620,7 +697,11 @@ namespace hot_summer
         {
             return this.isStart;
         }
-           
+
+        /// <summary>
+        /// 更改暂停按钮的信息
+        /// </summary>
+        /// <param name="s"></param>
         public void set_stop(string s)
         {
             this.stop.Text = s;

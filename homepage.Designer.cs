@@ -63,7 +63,7 @@
             // 
             this.headPic.BackColor = System.Drawing.Color.White;
             this.headPic.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("headPic.BackgroundImage")));
-            this.headPic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.headPic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.headPic.Location = new System.Drawing.Point(48, 12);
             this.headPic.Name = "headPic";
             this.headPic.Size = new System.Drawing.Size(58, 57);
