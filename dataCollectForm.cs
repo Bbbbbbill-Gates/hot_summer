@@ -689,6 +689,10 @@ namespace hot_summer
             }
         }
 
+        /// <summary>
+        /// 修改比分
+        /// </summary>
+        /// <param name="team"></param>
         private void alter_score(int team)
         {
             int t;
@@ -703,6 +707,10 @@ namespace hot_summer
             this.score.Text = ss;
         }
 
+        /// <summary>
+        /// 获取是否开始计时
+        /// </summary>
+        /// <returns></returns>
         public bool get_isStart()
         {
             return this.isStart;
