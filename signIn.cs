@@ -52,9 +52,9 @@ namespace hot_summer
             string DBname = "test_schema";
             string DBuserName = "root";
             string DBpassword = "ca.0123";
-            string tableName = "test_table";
-            string userNameCol = "idtest_table";
-            string passwordCol = "test_tablecol1";
+            string tableName = "usertable";
+            string userNameCol = "userid";
+            string passwordCol = "userpwd";
 
             //数据库中检查用户名和密码, 只实现了查询数字
             //检查用户名和密码 开始
@@ -84,7 +84,7 @@ namespace hot_summer
 
                 //打开主页面
                 this.Hide();
-                optForm optform = new optForm();
+                optForm optform = new optForm(this.username);
                 optform.StartPosition = FormStartPosition.CenterScreen;
                 optform.Show();
             }

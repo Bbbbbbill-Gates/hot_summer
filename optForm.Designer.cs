@@ -117,6 +117,7 @@
             this.Name = "optForm";
             this.Text = "optForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.optForm_FormClosed);
+            this.Load += new System.EventHandler(this.optForm_Load);
             this.ResumeLayout(false);
 
         }

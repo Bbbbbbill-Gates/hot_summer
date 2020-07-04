@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,14 +16,21 @@ namespace hot_summer
         private bool isRecord = false;
         private bool isUser = false;
         private optForm last;
+        private string userID;
 
-        public homepage(optForm opt)
+        private string username;
+        private string phone;
+        private string add;
+        private string email;
+
+        public homepage(optForm opt, string s)
         {
             InitializeComponent();
 
             userBtn_Click(null, null);
 
             this.last = opt;
+            this.userID = s;
         }
         /// <summary>
         /// 当页面关闭,显示主页面
@@ -34,6 +42,11 @@ namespace hot_summer
             this.last.Show();
         }
 
+        /// <summary>
+        /// 显示用户信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void userBtn_Click(object sender, EventArgs e)
         {
             if (! this.isUser)
@@ -58,6 +71,11 @@ namespace hot_summer
             }
         }
 
+        /// <summary>
+        /// 显示工作记录
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void recordBtn_Click(object sender, EventArgs e)
         {
             if (! this.isRecord)
@@ -79,6 +97,58 @@ namespace hot_summer
                 this.phone_lbl.Visible = false;
                 this.address_lbl.Visible = false;
                 this.change_btn.Visible = false;
+            }
+        }
+
+        /// <summary>
+        /// 加载用户信息
+        /// </summary>
+        private void load_user()
+        {
+            bool isSuccess = false;
+
+            //获取在哪里查询
+            string DBServer = "localhost";
+            string DBname = "test_schema";
+            string DBuserName = "root";
+            string DBpassword = "ca.0123";
+            string tableName = "usertable";
+            string userNameCol = "userid";
+
+            //要查询的信息
+            string UserPhone = "UserPhone";
+            string UserName = "UserName";
+            string UserEmail = "UserEmail";
+            string UserAdd = "UserAdd";
+
+            //开始查询
+            MySqlCommand cmd;
+            MySqlConnection conn;
+            long num;
+
+            string connstring = "Server=" + DBServer + ";Database =" + DBname + ";Uid=" + DBuserName + ";Pwd=" + DBpassword + ";";
+
+            conn = new MySqlConnection(connstring);
+            conn.Open();
+
+            //查询在服务器的相关信息
+            /*string query = "select count(*) from " + tableName + " where " + userNameCol + "=" + this.userID + "';";
+            cmd = new MySqlCommand(query, conn);
+
+            num = (long)cmd.ExecuteScalar();
+            if (num != 0l) isSuccess = true;*/
+
+            conn.Close();
+            //查询 结束
+
+            //输入正确则打开主页面，不正确提示用户名或密码错误，清空密码，密码框获得焦点
+            if (isSuccess)
+            {
+                //更新信息
+            }
+            else
+            {
+                //提示错误
             }
         }
     }

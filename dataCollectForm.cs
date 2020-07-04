@@ -48,6 +48,8 @@ namespace hot_summer
         private Point st, now;
         private Graphics g;
 
+        //记录是否通过菜单关闭
+
         /// <summary>
         /// 构造函数初始化调整操作窗口在屏幕上的位置
         /// </summary>
@@ -625,9 +627,15 @@ namespace hot_summer
             if (e.ColumnIndex != 3) return;
             string con = (string)d[e.ColumnIndex, e.RowIndex].Value;
             if (con == null) return;
-            if (con.Contains("犯规") && ! con.Contains("红牌") && ! con.Contains("黄牌"))
+
+            if (con.Contains("犯规"))
             {
+                //要存的信息
+                string mge = "  (";
+                
                 int card = -1;
+                int team = -1;
+                //红黄牌信息
                 using (CardForm frm = new CardForm())
                 {
                     frm.StartPosition = FormStartPosition.CenterParent;
@@ -636,22 +644,54 @@ namespace hot_summer
                         card = frm.get_card();
                     }
                 }
-
                 if (card == 0)
                 {
-                    d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + "无牌";
+                    mge += "无牌";
+                    //d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + "无牌";
                 }
                 else if (card == 1)
                 {
-                    d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + "黄牌";
+                    mge += "黄牌";
+                    //d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + "黄牌";
                 }
                 else if (card == 2)
                 {
-                    d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + "红牌";
+                    mge += "红牌";
+                    //d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + "红牌";
                 }
+                //队伍信息
+                using (CardTeam frm = new CardTeam())
+                {
+                    frm.StartPosition = FormStartPosition.CenterParent;
+                    if (frm.ShowDialog() == DialogResult.OK)
+                    {
+                        team = frm.get_team();
+                    }
+                }
+                if (team == 0)
+                {
+                    mge += " 主队";
+                }
+                else if (team == 1)
+                {
+                    mge += " 客队";
+                }
+                //球员信息
+                using (playerSelect frm = new playerSelect())
+                {
+                    frm.StartPosition = FormStartPosition.CenterParent;
+                    if (frm.ShowDialog() == DialogResult.OK)
+                    {
+                        mge += frm.get_str();
+                    }
+                }
+
+                d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + mge + ")";
             }
             else if(!con.Contains("越位") && !con.Contains("界外球"))
             {
+                string mge = "  (";
+                //队伍信息
                 int team = -1;
                 using (TeamForm frm = new TeamForm())
                 {
@@ -660,7 +700,15 @@ namespace hot_summer
                         team = frm.get_team();
                     }
                 }
-
+                if (team == 0)
+                {
+                    mge += "主队";
+                }
+                else if (team == 1)
+                {
+                    mge += "客队";
+                }
+                //进球信息
                 int goal = -1;
                 using (GoalForm frm = new GoalForm())
                 {
@@ -670,22 +718,34 @@ namespace hot_summer
                         goal = frm.get_goal();
                     }
                 }
-
                 if (goal == 0)
                 {
-                    d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + "未进球";
+                    mge += "未进球";
+                    //d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + "未进球";
                 }
                 else if (goal == 1)
                 {
-                    d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + "乌龙";
+                    mge += "乌龙";
+                    //d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + "乌龙";
                     this.alter_score(team);
                 }
                 else if (goal == 2)
                 {
-                    d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + "进球";
+                    mge += "进球";
+                    //d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + " " + "进球";
                     this.alter_score(team);
                 }
+                //球员信息
+                using (GoalPlayer frm = new GoalPlayer())
+                {
+                    frm.StartPosition = FormStartPosition.CenterParent;
+                    if (frm.ShowDialog() == DialogResult.OK)
+                    {
+                        mge += frm.get_str();
+                    }
+                }
 
+                d[e.ColumnIndex, e.RowIndex].Value = d[e.ColumnIndex, e.RowIndex].Value + mge + ")";
             }
         }
 

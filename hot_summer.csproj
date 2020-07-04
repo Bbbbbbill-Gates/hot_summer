@@ -37,6 +37,7 @@
     <Reference Include="MySql.Data, Version=8.0.20.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,6 +54,12 @@
     </Compile>
     <Compile Include="CardForm.Designer.cs">
       <DependentUpon>CardForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CardTeam.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CardTeam.Designer.cs">
+      <DependentUpon>CardTeam.cs</DependentUpon>
     </Compile>
     <Compile Include="createProForm1.cs">
       <SubType>Form</SubType>
@@ -84,6 +91,12 @@
     <Compile Include="GoalForm.Designer.cs">
       <DependentUpon>GoalForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GoalPlayer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GoalPlayer.Designer.cs">
+      <DependentUpon>GoalPlayer.cs</DependentUpon>
+    </Compile>
     <Compile Include="homepage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +108,12 @@
     </Compile>
     <Compile Include="optForm.Designer.cs">
       <DependentUpon>optForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="playerSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="playerSelect.Designer.cs">
+      <DependentUpon>playerSelect.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -113,6 +132,9 @@
     <EmbeddedResource Include="CardForm.resx">
       <DependentUpon>CardForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CardTeam.resx">
+      <DependentUpon>CardTeam.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="createProForm1.resx">
       <DependentUpon>createProForm1.cs</DependentUpon>
     </EmbeddedResource>
@@ -128,11 +150,17 @@
     <EmbeddedResource Include="GoalForm.resx">
       <DependentUpon>GoalForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GoalPlayer.resx">
+      <DependentUpon>GoalPlayer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="homepage.resx">
       <DependentUpon>homepage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="optForm.resx">
       <DependentUpon>optForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="playerSelect.resx">
+      <DependentUpon>playerSelect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
