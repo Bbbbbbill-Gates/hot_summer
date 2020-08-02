@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DBOperation;
 
 namespace hot_summer
 {
@@ -46,35 +47,18 @@ namespace hot_summer
                 text_password.Focus();
                 return;
             }
-            
-            //获取在哪里查询
-            string DBServer = "localhost";
-            string DBname = "test_schema";
-            string DBuserName = "root";
-            string DBpassword = "ca.0123";
-            string tableName = "usertable";
-            string userNameCol = "userid";
-            string passwordCol = "userpwd";
 
-            //数据库中检查用户名和密码, 只实现了查询数字
+            //要查询的信息
+            string tableName = "user_table";
+            string userNameCol = "user_id";
+            string passwordCol = "user_pwd";
+
+            //数据库中检查用户名和密码
             //检查用户名和密码 开始
-            MySqlCommand cmd;
-            MySqlConnection conn;
-            long num;
-
-            string connstring = "Server=" + DBServer + ";Database =" + DBname + ";Uid=" + DBuserName + ";Pwd=" + DBpassword + ";";
-
-            conn = new MySqlConnection(connstring);
-            conn.Open();
-
-            string query = "select count(*) from " + tableName + " where " + userNameCol + "=" + username + " and " + passwordCol + "='" + password + "';";
-            cmd = new MySqlCommand(query, conn);
-
-            num = (long)cmd.ExecuteScalar();
-            if (num != 0l) isSuccess = true;
-            else isSuccess = false;
-            
-            conn.Close(); 
+            DBO dbo = new DBO();
+            dbo.Open();
+            isSuccess = dbo.IsAllExisted(tableName, userNameCol, "123456", passwordCol, "123456");
+            dbo.Close();
             //检查用户名和密码 结束
 
             //输入正确则打开主页面，不正确提示用户名或密码错误，清空密码，密码框获得焦点
@@ -121,7 +105,13 @@ namespace hot_summer
 
         private void signIn_Load(object sender, EventArgs e)
         {
-
+            /*DBO dbo = new DBO();
+            dbo.Open();
+            string tableName = "user_table";
+            string userNameCol = "user_id";
+            string passwordCol = "user_pwd";
+            string mge = dbo.FindRow(tableName, userNameCol, "123456");
+            MessageBox.Show(mge);*/
         }
     }
 }

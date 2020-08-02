@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DBOperation;
 
 namespace hot_summer
 {
@@ -60,6 +61,12 @@ namespace hot_summer
                 this.address_lbl.Visible = true;
                 this.change_btn.Visible = true;
 
+                this.label2.Visible = true;
+                this.label3.Visible = true;
+                this.label4.Visible = true;
+                this.label5.Visible = true;
+                this.label6.Visible = true;
+
                 this.isRecord = false;
                 this.dataGridView1.Visible = false;
                 this.comboBox1.Visible = false;
@@ -97,6 +104,12 @@ namespace hot_summer
                 this.phone_lbl.Visible = false;
                 this.address_lbl.Visible = false;
                 this.change_btn.Visible = false;
+
+                this.label2.Visible = false;
+                this.label3.Visible = false;
+                this.label4.Visible = false;
+                this.label5.Visible = false;
+                this.label6.Visible = false;
             }
         }
 
@@ -105,16 +118,6 @@ namespace hot_summer
         /// </summary>
         private void load_user()
         {
-            bool isSuccess = false;
-
-            //获取在哪里查询
-            string DBServer = "localhost";
-            string DBname = "test_schema";
-            string DBuserName = "root";
-            string DBpassword = "ca.0123";
-            string tableName = "usertable";
-            string userNameCol = "userid";
-
             //要查询的信息
             string UserPhone = "UserPhone";
             string UserName = "UserName";
@@ -122,34 +125,49 @@ namespace hot_summer
             string UserAdd = "UserAdd";
 
             //开始查询
-            MySqlCommand cmd;
-            MySqlConnection conn;
-            long num;
-
-            string connstring = "Server=" + DBServer + ";Database =" + DBname + ";Uid=" + DBuserName + ";Pwd=" + DBpassword + ";";
-
-            conn = new MySqlConnection(connstring);
-            conn.Open();
-
-            //查询在服务器的相关信息
-            /*string query = "select count(*) from " + tableName + " where " + userNameCol + "=" + this.userID + "';";
-            cmd = new MySqlCommand(query, conn);
-
-            num = (long)cmd.ExecuteScalar();
-            if (num != 0l) isSuccess = true;*/
-
-            conn.Close();
+            DBO dbo = new DBO();
+            dbo.Open();
+            string tableName = "user_table";
+            string userNameCol = "user_id";
+            string mge = dbo.FindRow(tableName, userNameCol, this.userID);
+            dbo.Close();
             //查询 结束
+            if ( mge == null )
+            {
+                MessageBox.Show("未查找到！", "错误");
+                return;
+            }
+            string[] splitChar = { "," };
+            string[] result = mge.Split( splitChar, StringSplitOptions.None);
+            
+            this.phone = result[1];
+            this.username = result[2];
+            this.email = result[4];
+            this.add = result[6];
 
-            //输入正确则打开主页面，不正确提示用户名或密码错误，清空密码，密码框获得焦点
-            if (isSuccess)
-            {
-                //更新信息
-            }
-            else
-            {
-                //提示错误
-            }
+            this.refreshLbl();
+            //MessageBox.Show(mge);
+        }
+
+        private void refreshLbl()
+        {
+            //lbl2是头像
+            this.label1.Text = this.userID;
+            this.label3.Text = this.userID;
+            this.label4.Text = this.phone;
+            this.label5.Text = this.email;
+            this.label6.Text = this.add;
+
+        }
+
+        /// <summary>
+        /// 加载窗口时，加载用户信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void homepage_Load(object sender, EventArgs e)
+        {
+            this.load_user();
         }
     }
 }

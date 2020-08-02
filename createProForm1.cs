@@ -1,4 +1,6 @@
-﻿using MySql.Data.MySqlClient;
+﻿using DBOperation;
+using iText.Layout.Element;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,14 +15,66 @@ namespace hot_summer
 {
     public partial class createProForm1 : Form
     {
+        private optForm lastForm;
+
+        //信息
         private string gameCategory;
         private DateTime gameTime;
         private string address;
-        private optForm lastForm;
+        private string pitch;
+        private string GameIndex;
+
+        private string userID;
         public createProForm1(optForm optform)
         {
             InitializeComponent();
             this.lastForm = optform;
+            this.userID = this.lastForm.get_userId();
+        }
+
+        /// <summary>
+        /// 返回比赛类别
+        /// </summary>
+        /// <returns></returns>
+        public string Get_gameCategory()
+        {
+            return this.gameCategory;
+        }
+
+        /// <summary>
+        /// 返回比赛时间
+        /// </summary>
+        /// <returns></returns>
+        public DateTime Get_gameTime()
+        {
+            return this.gameTime;
+        }
+
+        /// <summary>
+        /// 返回比赛地点
+        /// </summary>
+        /// <returns></returns>
+        public string Get_address()
+        {
+            return this.address;
+        }
+
+        /// <summary>
+        /// 返回球场
+        /// </summary>
+        /// <returns></returns>
+        public string Get_pitch()
+        {
+            return this.pitch;
+        }
+
+        /// <summary>
+        /// 返回场序号
+        /// </summary>
+        /// <returns></returns>
+        public string Get_GameIndex()
+        {
+            return this.GameIndex;
         }
 
         /// <summary>
@@ -133,6 +187,39 @@ namespace hot_summer
         private void createProForm1_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.lastForm.Show();
+        }
+
+        private void createProForm1_Load(object sender, EventArgs e)
+        {
+            this.gameTime = dateTimePicker1.Value;
+
+            //加载比赛类别信息
+            this.comboBox1.Items.Clear();
+
+            string tableName = "system_data_table";
+            string colName = "system_data_name";
+            string value = "赛事名称";
+            int colNum = 2;
+            DBO dbo = new DBO();
+            dbo.Open();
+            string mge = dbo.FindCol(tableName, colName, colNum, value);
+            string[] splitChar = { "," };
+            string[] result = mge.Split(splitChar, StringSplitOptions.None);
+            for (int i = 0; i < result.Length; i ++ )
+            {
+                this.comboBox1.Items.Add(result[i]);
+            }
+            //MessageBox.Show(mge);
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            this.pitch = textBox2.Text;
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            this.GameIndex = this.textBox3.Text;
         }
     }
 }

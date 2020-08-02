@@ -17,9 +17,9 @@ namespace hot_summer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new dataCollectForm(new optForm("123456")));
+            //Application.Run(new dataCollectForm(new optForm("123456"), new createProForm1(new optForm("123456")), new createProForm2(new createProForm1(new optForm("123456")), new optForm("123456"))));
             //Application.Run(new createProForm2(null));
-            //Application.Run(new signIn());
+            Application.Run(new signIn());
             //Application.Run(new homepage(new optForm("123456"), "123456"));
         }
     }

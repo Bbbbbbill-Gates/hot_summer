@@ -22,6 +22,11 @@ namespace hot_summer
             this.userID = s;
         }
 
+        public string get_userId()
+        {
+            return this.userID;
+        }
+
         /// <summary>
         /// btn1点击开始新建项目
         /// </summary>

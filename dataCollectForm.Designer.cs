@@ -46,9 +46,9 @@
             this.refereeData = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.菜单ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.结束ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.导入视频ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.结束ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -95,6 +95,7 @@
             // 
             // halfTimeChoice
             // 
+            this.halfTimeChoice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.halfTimeChoice.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.halfTimeChoice.FormattingEnabled = true;
             this.halfTimeChoice.Items.AddRange(new object[] {
@@ -105,6 +106,7 @@
             this.halfTimeChoice.Name = "halfTimeChoice";
             this.halfTimeChoice.Size = new System.Drawing.Size(121, 26);
             this.halfTimeChoice.TabIndex = 2;
+            this.halfTimeChoice.DropDown += new System.EventHandler(this.halfTimeChoice_DropDown);
             this.halfTimeChoice.SelectedIndexChanged += new System.EventHandler(this.halfTime_SelectedIndexChanged);
             // 
             // start
@@ -133,12 +135,14 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Location = new System.Drawing.Point(1, 125);
+            this.pictureBox1.Location = new System.Drawing.Point(-63, 124);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(979, 578);
+            this.pictureBox1.Size = new System.Drawing.Size(1107, 623);
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
@@ -153,6 +157,8 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.number,
@@ -160,7 +166,7 @@
             this.coordinateOfReferee,
             this.eventOfGame,
             this.coordinateOfEvent});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 743);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 795);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 27;
@@ -205,13 +211,14 @@
             // 
             // refereeData
             // 
+            this.refereeData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.refereeData.AutoSize = true;
-            this.refereeData.Location = new System.Drawing.Point(12, 715);
+            this.refereeData.Location = new System.Drawing.Point(174, 763);
             this.refereeData.Name = "refereeData";
-            this.refereeData.Size = new System.Drawing.Size(958, 15);
+            this.refereeData.Size = new System.Drawing.Size(632, 15);
             this.refereeData.TabIndex = 9;
-            this.refereeData.Text = "主裁判：       第一助理裁判：        第二助理裁判：         第四官员：    底线裁判1：    底线裁判2：    视频助理裁判组：  " +
-    "  ";
+            this.refereeData.Text = "主裁判：       第一助理裁判：        第二助理裁判：         第四官员：           ";
             // 
             // menuStrip1
             // 
@@ -227,19 +234,19 @@
             // 菜单ToolStripMenuItem
             // 
             this.菜单ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.结束ToolStripMenuItem,
+            this.导入视频ToolStripMenuItem,
             this.保存ToolStripMenuItem,
-            this.导入视频ToolStripMenuItem});
+            this.结束ToolStripMenuItem});
             this.菜单ToolStripMenuItem.Name = "菜单ToolStripMenuItem";
             this.菜单ToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.菜单ToolStripMenuItem.Text = "菜单";
             // 
-            // 结束ToolStripMenuItem
+            // 导入视频ToolStripMenuItem
             // 
-            this.结束ToolStripMenuItem.Name = "结束ToolStripMenuItem";
-            this.结束ToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
-            this.结束ToolStripMenuItem.Text = "结束";
-            this.结束ToolStripMenuItem.Click += new System.EventHandler(this.结束ToolStripMenuItem_Click);
+            this.导入视频ToolStripMenuItem.Name = "导入视频ToolStripMenuItem";
+            this.导入视频ToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.导入视频ToolStripMenuItem.Text = "导入视频";
+            this.导入视频ToolStripMenuItem.Click += new System.EventHandler(this.导入视频ToolStripMenuItem_Click);
             // 
             // 保存ToolStripMenuItem
             // 
@@ -248,12 +255,12 @@
             this.保存ToolStripMenuItem.Text = "保存";
             this.保存ToolStripMenuItem.Click += new System.EventHandler(this.保存ToolStripMenuItem_Click);
             // 
-            // 导入视频ToolStripMenuItem
+            // 结束ToolStripMenuItem
             // 
-            this.导入视频ToolStripMenuItem.Name = "导入视频ToolStripMenuItem";
-            this.导入视频ToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
-            this.导入视频ToolStripMenuItem.Text = "导入视频";
-            this.导入视频ToolStripMenuItem.Click += new System.EventHandler(this.导入视频ToolStripMenuItem_Click);
+            this.结束ToolStripMenuItem.Name = "结束ToolStripMenuItem";
+            this.结束ToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.结束ToolStripMenuItem.Text = "结束";
+            this.结束ToolStripMenuItem.Click += new System.EventHandler(this.结束ToolStripMenuItem_Click);
             // 
             // contextMenuStrip1
             // 
@@ -265,7 +272,9 @@
             this.toolStripMenuItem4});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(124, 100);
+            this.contextMenuStrip1.Closing += new System.Windows.Forms.ToolStripDropDownClosingEventHandler(this.contextMenuStrip1_Closing);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            this.contextMenuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_ItemClicked);
             // 
             // toolStripMenuItem1
             // 
@@ -355,8 +364,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(981, 953);
+            this.ClientSize = new System.Drawing.Size(981, 1055);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.refereeData);
             this.Controls.Add(this.pictureBox1);
@@ -370,6 +378,7 @@
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MaximizeBox = false;
             this.Name = "dataCollectForm";
             this.Text = "dataCollectForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.dataCollectForm_FormClosing);

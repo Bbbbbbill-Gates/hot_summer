@@ -15,6 +15,7 @@ namespace hot_summer
     public partial class gamePlay : Form
     {
         private dataCollectForm data;
+        private bool isClose = false;
         /// <summary>
         /// 构造函数初始化播放窗口在屏幕中的位置
         /// </summary>
@@ -26,6 +27,11 @@ namespace hot_summer
             this.Location = new Point(x, y);
 
             this.data = home;
+        }
+        
+        public void Set_isClose(bool b)
+        {
+            this.isClose = b;
         }
 
         /// <summary>
@@ -59,24 +65,28 @@ namespace hot_summer
 
         private void gamePlay_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = true;
-            this.Hide();
 
-
-            if (data.get_isStart() && this.axWindowsMediaPlayer1.URL != null && this.axWindowsMediaPlayer1.URL != "")
+            if (! this.isClose)
             {
-                if (this.axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPlaying)
-                {
-                    this.axWindowsMediaPlayer1.Ctlcontrols.pause();
-                    data.set_stop("继续");
-                    return;
-                }
+                e.Cancel = true;
+                this.Hide();
 
-                if (this.axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPaused)
+
+                if (data.get_isStart() && this.axWindowsMediaPlayer1.URL != null && this.axWindowsMediaPlayer1.URL != "")
                 {
-                    this.axWindowsMediaPlayer1.Ctlcontrols.play();
-                    data.set_stop("暂停");
-                    return;
+                    if (this.axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPlaying)
+                    {
+                        this.axWindowsMediaPlayer1.Ctlcontrols.pause();
+                        data.set_stop("继续");
+                        return;
+                    }
+
+                    if (this.axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPaused)
+                    {
+                        this.axWindowsMediaPlayer1.Ctlcontrols.play();
+                        data.set_stop("暂停");
+                        return;
+                    }
                 }
             }
         }
